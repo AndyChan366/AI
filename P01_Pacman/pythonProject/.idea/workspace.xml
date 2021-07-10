@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="854edb78-41e5-48ae-920e-d29716732c12" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="JupyterTrust" id="ab3a47b9-17ad-4aea-b0d6-7ac2d498de08" />
+  <component name="ProjectId" id="1i91xGl4YwZehqKqcVdBXiIZkTe" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$APPLICATION_HOME_DIR$/multiagent/multiagent" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="854edb78-41e5-48ae-920e-d29716732c12" name="Default Changelist" comment="" />
+      <created>1601305238539</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1601305238539</updated>
+      <workItem from="1601305240074" duration="44000" />
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="421" y="99" key="FileChooserDialogImpl" timestamp="1601305275522">
+      <screen x="0" y="0" width="1280" height="688" />
+    </state>
+    <state x="421" y="99" key="FileChooserDialogImpl/0.0.1280.688@0.0.1280.688" timestamp="1601305275522" />
+  </component>
+</project>
