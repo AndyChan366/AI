@@ -173,9 +173,11 @@ Do * Find1(Othello *board, enum Option player, int step, int min, int max, Do *c
 		// 故假设根节点为第0层，beta层的数值为负。
 		// 剪枝条件：beta <= alpha, 即score >= max。
 
-		if (player == WHITE) {
+		if (player == WHITE) 
+		{
 			int alpha = -max, beta = -min;
-			if (thisChoice.score > -beta) {
+			if (thisChoice.score > -beta) 
+			{
 				beta = -thisChoice.score;
 				choice->score = thisChoice.score;
 				choice->pos.first = thisChoice.pos.first;
@@ -184,9 +186,11 @@ Do * Find1(Othello *board, enum Option player, int step, int min, int max, Do *c
 				if (beta <= alpha) break;
 			}
 		}
-		else if(player == BLACK) {
+		else if(player == BLACK) 
+		{
 			int alpha = min, beta = max;
-			if (thisChoice.score > alpha) {
+			if (thisChoice.score > alpha) 
+			{
 				alpha = thisChoice.score;
 				choice->score = thisChoice.score;
 				choice->pos.first = thisChoice.pos.first;
@@ -231,156 +235,146 @@ start:
 	present = BLACK;                  
 	num = 4;
 	restart = ' ';
-	
 	cout << ">>>人机对战开始： \n";
 	
-	
-		
+	while (player != WHITE && player != BLACK)
+	{
+		cout << ">>>请选择执黑棋(○),或执白棋(●)：输入1为黑棋，-1为白棋" << endl;
+		scanf("%d", &player);
+		cout << ">>>黑棋行动:  \n";
 
-		while (player != WHITE && player != BLACK)
+		if (player != WHITE && player != BLACK)
 		{
-			cout << ">>>请选择执黑棋(○),或执白棋(●)：输入1为黑棋，-1为白棋" << endl;
-			scanf("%d", &player);
-			cout << ">>>黑棋行动:  \n";
+			cout << "输入不符合规范，请重新输入\n";
+		}
+	}
 
-			
-			if (player != WHITE && player != BLACK)
-			{
-				cout << "输入不符合规范，请重新输入\n";
-			}
+	board.Create(pBoard);					
+
+	while (num<36)								// 棋盘上未下满36子 
+	{
+		char *Player = "";
+		if (present == BLACK)
+		{
+			Player = "黑棋(○)";
+		}
+		else if (present == WHITE)
+		{
+			Player = "白棋(●)";
 		}
 
-		board.Create(pBoard);					
-
-		while (num<36)													// 棋盘上未下满36子 
+		if (board.Rule(pBoard, present) == 0)		//未下满并且无子可下
 		{
-			char *Player = "";
-			if (present == BLACK)
+			if (board.Rule(pBoard, (enum Option) - present) == 0)
 			{
-				Player = "黑棋(○)";
+				break;                 
 			}
-			else if (present == WHITE)
-			{
-				Player = "白棋(●)";
-			}
+			cout << Player << "GAME OVER! \n";
+		}
+		else
+		{
+			int i, j;
+			board.Show(pBoard);
 
-			if (board.Rule(pBoard, present) == 0)						//未下满并且无子可下
+			if (present == player)     
 			{
-				if (board.Rule(pBoard, (enum Option) - present) == 0)
-				{
-					break;                 
-				}
-
-				cout << Player << "GAME OVER! \n";
-			}
-			else
-			{
-				int i, j;
-				board.Show(pBoard);
-
-				if (present == player)     
-				{
-					cout << Player << "..........................";
-					
-					pChoice = Find1(pBoard, present, depth, -MAX, MAX, pChoice);
-					i = pChoice->pos.first;
-					j = pChoice->pos.second;
-					system("cls");
-					cout << ">>>我的AI本手棋得分为     " << pChoice->score << endl;
-					board.Action(pBoard, pChoice, present);
+				cout << Player << "..........................";
+				pChoice = Find1(pBoard, present, depth, -MAX, MAX, pChoice);
+				i = pChoice->pos.first;
+				j = pChoice->pos.second;
+				system("cls");
+				cout << ">>>我的AI本手棋得分为     " << pChoice->score << endl;
+				board.Action(pBoard, pChoice, present);
 				num++;
 				cout << Player << ">>>我的AI于" << i + 1 << "," << j + 1<<"落子，该你了！";
-				/*	while (1)
-					{
-						cout << Player << " \n >>>请输入棋子坐标（空格相隔 如“3 5”代表第3行第5列）:\n";
-						
-						cin >> i>> j;		
-						i--;
-						j--; 
-						pChoice->pos.first = i;
-						pChoice->pos.second = j;  
-
-						if (i<0 || i>5 || j<0 || j>5 || pBoard->cell[i][j].color != SPACE || pBoard->cell[i][j].stable == 0)
-						{
-							cout <<">>>此处落子不符合规则，请重新选择   \n";
-							board.Show(pBoard);
-						}
-						else
-						{
-							break;
-						}*
-					}*/ 
-					/*board.Show(pBoard);
-					system("cls");
-					cout << ">>>玩家 本手棋得分为     " << pChoice->score << endl;
-					system("pause");
-					cout << ">>>按任意键继续" << pChoice->score << endl;*/ 
-				}
-				else   //AI下棋
-				{   
-					cout << Player << "..........................";
+			/*	while (1)
+				{
+					cout << Player << " \n >>>请输入棋子坐标（空格相隔 如“3 5”代表第3行第5列）:\n";
 					
-					pChoice = Find1(pBoard, present, depth, -MAX, MAX, pChoice);
-					i = pChoice->pos.first;
-					j = pChoice->pos.second;
-					system("cls");
-					cout << ">>>电脑的AI本手棋得分为     " << pChoice->score << endl;
-				
+					cin >> i>> j;		
+					i--;
+					j--; 
+					pChoice->pos.first = i;
+					pChoice->pos.second = j;  
 
+					if (i<0 || i>5 || j<0 || j>5 || pBoard->cell[i][j].color != SPACE || pBoard->cell[i][j].stable == 0)
+					{
+						cout <<">>>此处落子不符合规则，请重新选择   \n";
+						board.Show(pBoard);
+					}
+					else
+					{
+						break;
+					}*
+				}*/ 
+				/*board.Show(pBoard);
+				system("cls");
+				cout << ">>>玩家 本手棋得分为     " << pChoice->score << endl;
+				system("pause");
+				cout << ">>>按任意键继续" << pChoice->score << endl;*/ 
+			}
+			else   //AI下棋
+			{   
+				cout << Player << "..........................";
+				pChoice = Find1(pBoard, present, depth, -MAX, MAX, pChoice);
+				i = pChoice->pos.first;
+				j = pChoice->pos.second;
+				system("cls");
+				cout << ">>>电脑的AI本手棋得分为     " << pChoice->score << endl;
 
 				board.Action(pBoard, pChoice, present);
 				num++;
 				cout << Player << ">>>电脑的AI于" << i + 1 << "," << j + 1<<"落子，该你了！";
-				} 
-			}
-
-			present = (enum Option) - present;    //交换执棋者
+			} 
 		}
 
+		present = (enum Option) - present;    //交换执棋者
+	}
 
-		board.Show(pBoard);
+
+	board.Show(pBoard);
 
 
-		result = pBoard->whiteNum - pBoard->blackNum;
+	result = pBoard->whiteNum - pBoard->blackNum;
 
-		if (result>0)
+	if (result>0)
+	{
+		cout << "\n——————白棋(●)胜——————\n";
+	}
+	else if (result<0)
+	{
+		cout << "\n——————黑棋(○)胜——————\n";
+	}
+	else
+	{
+		cout << "\n————————平局————————\n";
+	}
+
+	cout << "\n ————————GAME OVER!————————\n";
+	cout << "\n";
+	
+	while (restart != 'Y' && restart != 'N')
+	{
+		cout <<"|—————————————————————|\n";
+		cout <<"|                                          | \n";
+		cout <<"|                                          |   \n";
+		cout <<"|>>>>>>>>>>>>>>>>Again?(Y,N)<<<<<<<<<<<<<<<|\n";
+		cout <<"|                                          | \n";
+		cout <<"|                                          |  \n";
+		cout <<"|—————————————————————|\n";
+		cout << "                                            \n";
+		cout << "                                            \n";
+		cout << "                                            \n";
+		cout << " —————                 —————       \n";
+		cout << " |   YES  |                 |   NO   |      \n";
+		cout << " —————                 —————      \n";
+
+		cin >> restart;
+		if (restart == 'Y')
 		{
-			cout << "\n——————白棋(●)胜——————\n";
+			goto start;
 		}
-		else if (result<0)
-		{
-			cout << "\n——————黑棋(○)胜——————\n";
-		}
-		else
-		{
-			cout << "\n————————平局————————\n";
-		}
-
-		cout << "\n ————————GAME OVER!————————\n";
-		cout << "\n";
-		
-		while (restart != 'Y' && restart != 'N')
-		{
-			cout <<"|—————————————————————|\n";
-			cout <<"|                                          | \n";
-			cout <<"|                                          |   \n";
-			cout <<"|>>>>>>>>>>>>>>>>Again?(Y,N)<<<<<<<<<<<<<<<|\n";
-			cout <<"|                                          | \n";
-			cout <<"|                                          |  \n";
-			cout <<"|—————————————————————|\n";
-			cout << "                                            \n";
-			cout << "                                            \n";
-			cout << "                                            \n";
-			cout << " —————                 —————       \n";
-			cout << " |   YES  |                 |   NO   |      \n";
-			cout << " —————                 —————      \n";
-
-			cin >> restart;
-			if (restart == 'Y')
-			{
-				goto start;
-			}
-		}
+	}
 
 	
 	return 0;
@@ -440,24 +434,24 @@ void Othello::Show(Othello *board)
 		{
 			switch (board->cell[i][j].color)
 			{
-			case BLACK:
-				cout << "○│";
-				break;
-			case WHITE:
-				cout << "●│";
-				break;
-			case SPACE:
-				if (board->cell[i][j].stable)
-				{
-					cout << " +│";
-				}
-				else
-				{
-					cout << "  │";
-				}
-				break;
-			default:    /* 棋子颜色错误 */
-				cout << "* │";
+				case BLACK:
+					cout << "○│";
+					break;
+				case WHITE:
+					cout << "●│";
+					break;
+				case SPACE:
+					if (board->cell[i][j].stable)
+					{
+						cout << " +│";
+					}
+					else
+					{
+						cout << "  │";
+					}
+					break;
+				default:    /* 棋子颜色错误 */
+					cout << "* │";
 			}
 		}
 		cout << "\n    ────────────\n";
